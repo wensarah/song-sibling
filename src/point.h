@@ -4,12 +4,14 @@
 #include <vector>
 #include <string>
 #pragma once
+//creates the Point struct
 struct Point {
     std::string name;
     double x;
     double y;
 };
 
+//turns a csv file in the format "name, x-coordinate, y-coordinate" into a vector of points
 std::vector<Point> loadPoints(const std::string& filename) { //filename is a reference
     // Open the file using the parameter variable passed into the function
     std::ifstream file(filename);
