@@ -2,6 +2,8 @@
 #include "point.h"
 #include <algorithm>
 #include <cmath>
+#include <set>
+#include <queue>
 
 //Creates the struct KDNode
 struct KDNode {
@@ -76,3 +78,55 @@ Point nearestNeighbor(KDNode* root, const Point& query) {
     return nearestNeighbor(root, query, 0, root->point);
 }
 
+
+void radiusQuery(KDNode* node, const Point& query, double r, int depth, std::vector<Point>& results) {
+    if(node == nullptr){
+        return;
+    }
+    if(distance(query, node->point) <=r) {
+        results.push_back(node->point);
+    }
+    double queryVal = (depth % 2 == 0) ? query.x : query.y;
+    double nodeVal = (depth % 2 == 0) ? node->point.x : node->point.y;
+    if (std::abs(nodeVal - queryVal) <= r) {
+        // could have points within r on both sides — check both
+        radiusQuery(node->left, query, r, depth + 1, results);
+        radiusQuery(node->right, query, r, depth + 1, results);
+    } else if (queryVal < nodeVal) {
+        radiusQuery(node->left, query, r, depth + 1, results);
+    } else {
+        radiusQuery(node->right, query, r, depth + 1, results);
+    }
+
+}
+
+std::vector<std::vector<Point>> clusterPoints (const std::vector<Point>& points, KDNode* root, double r) {
+    std::set<std::string> visited;
+    std::vector<std::vector<Point>> clusters;
+
+    for(const Point& p: points){
+        std::string key = p.name;
+
+        if(visited.find(key) == visited.cend()) { //its unvisited
+            std::queue<Point> q; 
+            visited.insert(key);
+            q.push(p);
+            std::vector<Point> cluster; 
+            while(!q.empty()) {
+                Point curr = q.front();
+                q.pop();
+                cluster.push_back(curr);
+                std::vector<Point> withinRs; 
+                radiusQuery(root,curr,r,0,withinRs); //getting the points neighbors.
+                for(Point neigh : withinRs) {
+                    if(visited.find(neigh.name) == visited.cend()) { //its unvisited
+                        q.push(neigh);
+                        visited.insert(neigh.name);
+                    }
+                }
+            }
+            clusters.push_back(cluster);
+        }
+    }
+    return clusters;
+}
