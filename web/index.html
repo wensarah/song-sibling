@@ -4,47 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Geo Engine</title>
-    <link rel = "stylesheet" href="style.css">
+    <link rel= "stylesheet" href="style.css">
 </head>
 <body>
-    <div class="app">
-        <div class="header">
-            <h1>Song Sibling</h1>
-            <button class="helpBttn" id="helpBttn">?</button>
-        </div>
-        <div class="controls">
-            <div class="control-group">
-                <label for="songInput"> name the song!</label>
-                <input id="songInput" list="songList" placeholder="type">
-                <datalist id="songList">
-                </datalist>
+    <div class="layout">
+        <div class="app">
+            <div class="header">
+                <h1>Song Sibling</h1>
+                <button class="helpBttn" id="helpBttn">?</button>
             </div>
-            <div class="control-group">
-                <label for="songSlider">find its sibling!</label>
-                <input id="songSlider" type="range" min="0" max="100" value="0">
-                <div class="slider-labels">
-                    <label>twin</label>
-                    <label>stranger</label>
+            <div class="controls">
+                <div class="control-group">
+                    <label for="songInput"> name the song!</label>
+                    <input id="songInput" list="songList" placeholder="type">
+                    <datalist id="songList">
+                    </datalist>
+                </div>
+                <div class="control-group">
+                    <label for="songSlider">find its sibling!</label>
+                    <input id="songSlider" type="range" min="0" max="100" value="0">
+                    <div class="slider-labels">
+                        <label>twin</label>
+                        <label>wru?</label>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="clusterSelect">find families!</label>
+                    <select id="clusterSelect">
+                        <option value="">cluster</option>
+                        <option value="twins">twins</option>
+                        <option value="siblings">siblings</option>
+                        <option value="cousins">cousins</option>
+                        <option value="wru">wru?</option>
+                    </select>
                 </div>
             </div>
-            <div class="control-group">
-                <label for="clusterSelect">find families!</label>
-                <select id="clusterSelect">
-                    <option value="">cluster</option>
-                    <option value="twins">twins</option>
-                    <option value="siblings">siblings</option>
-                    <option value="cousins">cousins</option>
-                    <option value="strangers">strangers</option>
-                </select>
+                
+            <div class="canvas">
+                <canvas id="map" width="800" height="500"></canvas>
             </div>
-        </div>
             
-        <div class="canvas">
-            <canvas id="map" width="800" height="500"></canvas>
+            <button class="clearBttn" id="clearBttn">clear</button>
         </div>
-        <button class="clearBttn" id="clearBttn">clear</button>
+        <div class="receipt">
+            <h2>receipt</h2>
+            <p >current song</p>
+            <p id="currentSongName"></p>
+            <p>it's neighbors</p>
+            <ul id="neighborsList"></ul>
+        </div>        
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>

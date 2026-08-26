@@ -78,11 +78,22 @@ Point nearestNeighbor(KDNode* root, const Point& query) {
     return nearestNeighbor(root, query, 0, root->point);
 }
 
+bool equals(const Point& node, const Point& other) {
+    if(node.name != other.name){
+        return false;
+    } else if(std::abs(node.x - other.x) > 0.01) {
+        return false;
+    } else if (std::abs(node.y - other.y) > 0.01) {
+        return false;
+    }
+    return true;
+}
+
 void radiusQuery(KDNode* node, const Point& query, double r, int depth, std::vector<Point>& results) {
     if(node == nullptr){
         return;
     }
-    if(distance(query, node->point) <=r) {
+    if(distance(query, node->point) <=r && !equals(node->point, query)) {
         results.push_back(node->point);
     }
     double queryVal = (depth % 2 == 0) ? query.x : query.y;
@@ -97,6 +108,8 @@ void radiusQuery(KDNode* node, const Point& query, double r, int depth, std::vec
         radiusQuery(node->right, query, r, depth + 1, results);
     }
 }
+
+
 
 std::vector<std::vector<Point>> clusterPoints (const std::vector<Point>& points, KDNode* root, double r) {
     std::set<std::string> visited;

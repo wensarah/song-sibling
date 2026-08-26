@@ -1,17 +1,109 @@
-/* Whole Page Layout*/
-
-
-/*General Styling (body, headers..)*/
-
-
-/*Specific Elements*/ 
-#map {
-    background-color: beige;
-
+/* 1. Variables: my colors, fonts, spacing)*/
+:root{
+    --color-bg: #CAE988;
+    --color-accent: #677A37;
+    --color-highlight: #FB0058;
+    --font-title: Times New Roman, serif;
+    --font-body: 'Helvetica Neue', sans-serif;
+    --color-canvas:#FFFDC6;
+}
+/* 2. Base: body, *, box-sizing */
+* {
+    box-sizing:border-box;
 }
 
-#cluster {
-    background-color:chartreuse;
-    width:10vh;
+/* 3. Layout: page structure, flex/grid containers */
+body {
+    display:flex;
+    justify-content: center;
+    min-height:100vh;
+    background-color:var(--color-bg);
+    margin:0;
+}
+.layout {
+    display: flex;
+    gap: 24px;
+    max-width: 1200px;
+    width: 100%;
+    padding: 24px;
+}
+
+.app {
+    flex:1;
+    background-color:var(--color-bg);
+    border-radius:16px;
+    padding:24px;
+}
+
+.receipt {
+    width:250px;
+    background-color:white;
+    border-width:10px;
+    border-color:black;
+    border-radius:8px;
+    padding:24px;
+    padding-top:10px;
+}
+/* 4. Components: buttons, dropdowns, cards and other reusables */
+
+
+
+
+/* 5. Section-specific: header, controls, canvas, receipt */
+.header {
+    display:flex;
+    flex-direction:row;
+}  
+
+.control-group:nth-child(1),
+.control-group:nth-child(2) {
+    flex: 0 0 35%;
+}
+.control-group:nth-child(3) {
+    flex: 0 0 20%;
+}
+.control-group {
+    display:flex;
+    flex-direction:column;
+    
+}
+#helpBttn {
+    border-radius:20px;
+    background-color:var(--color-highlight);
+    color:var(--color-canvas);
+    width:3vh;
+    height:3vh;
+}
+#songInput {
+    border-radius:15px;
     height:5vh;
+    color:var(--color-accent);
+}
+#songSlider {
+    border-radius:15px;
+    height:5vh;
+    accent-color:var(--color-accent);
+}
+#clusterSelect {
+    border-radius:15px;
+    height:5vh;
+    color:var(--color-accent);
+}
+
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    margin: 16px 0;
+}
+.slider-labels{
+    display:flex;
+    justify-content: space-between;
+    align-items:flex-start;
+    width:100%;
+}
+.canvas {
+    background-color:var(--color-canvas);
 }
