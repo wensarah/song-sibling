@@ -32,7 +32,7 @@ body {
     flex:1;
     background-color:var(--color-bg);
     border-radius:16px;
-    padding:24px;
+    padding:0px;
 }
 
 .receipt {
@@ -43,16 +43,28 @@ body {
     border-radius:8px;
     padding:24px;
     padding-top:10px;
+    border-radius: 8px;
+    overflow-y: auto;
+    height: 715px;
 }
 /* 4. Components: buttons, dropdowns, cards and other reusables */
 
-
+h1 {
+    font-family:'Times New Roman', Times, serif;
+    font-weight:bold;
+    font-size:10vh;
+    padding-bottom:0;
+    margin:0;
+}
 
 
 /* 5. Section-specific: header, controls, canvas, receipt */
 .header {
     display:flex;
     flex-direction:row;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:0;
 }  
 
 .control-group:nth-child(1),
@@ -106,4 +118,9 @@ body {
 }
 .canvas {
     background-color:var(--color-canvas);
+    
+}
+
+.lbl{
+    font-weight: bold;
 }
