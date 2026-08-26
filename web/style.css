@@ -1,0 +1,17 @@
+/* Whole Page Layout*/
+
+
+/*General Styling (body, headers..)*/
+
+
+/*Specific Elements*/ 
+#map {
+    background-color: beige;
+
+}
+
+#cluster {
+    background-color:chartreuse;
+    width:10vh;
+    height:5vh;
+}

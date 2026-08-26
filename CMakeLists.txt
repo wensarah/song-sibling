@@ -6,3 +6,4 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)   # enforce it (fail if compiler can't do 
 
 add_executable(geo_nn src/main.cpp)     # build an executable called "geo_nn"
                                           # from src/main.cpp (add more .cpp files here later)
+target_include_directories(geo_nn PRIVATE external)

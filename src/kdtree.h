@@ -78,7 +78,6 @@ Point nearestNeighbor(KDNode* root, const Point& query) {
     return nearestNeighbor(root, query, 0, root->point);
 }
 
-
 void radiusQuery(KDNode* node, const Point& query, double r, int depth, std::vector<Point>& results) {
     if(node == nullptr){
         return;
@@ -97,7 +96,6 @@ void radiusQuery(KDNode* node, const Point& query, double r, int depth, std::vec
     } else {
         radiusQuery(node->right, query, r, depth + 1, results);
     }
-
 }
 
 std::vector<std::vector<Point>> clusterPoints (const std::vector<Point>& points, KDNode* root, double r) {
@@ -130,3 +128,19 @@ std::vector<std::vector<Point>> clusterPoints (const std::vector<Point>& points,
     }
     return clusters;
 }
+
+//brute force 
+Point bruteForceNearestNeighbor(const std::vector<Point>& points, const Point& query) {
+    Point closest = points.front();
+    double bestD = distance(closest,query);
+    for(Point curr: points) {
+        if(distance(curr, query) < bestD){
+            closest = curr;
+            bestD = distance(closest,query);
+        }
+    }
+    return closest;
+}
+
+
+
