@@ -34,39 +34,6 @@ int main() {
         }
         std::cout << std::endl;
     }
-    //brute force
-    //correctness
-    /*
-    Point treeResult = nearestNeighbor(kdtree, query);
-    Point bruteResult = bruteForceNearestNeighbor(points, query);
-    if (treeResult.name == bruteResult.name) {
-        std::cout << "Correctness check passed: both agree on " << treeResult.name << std::endl;
-    } else {
-        std::cout << "MISMATCH: tree=" << treeResult.name << " brute=" << bruteResult.name << std::endl;
-    }
-    //speed
-    
-    auto bStart = std::chrono::high_resolution_clock::now();
-    for(int i = 0; i < 1000; i++) {
-        bruteForceNearestNeighbor(points, query);
-    }
-    auto bEnd = std::chrono::high_resolution_clock::now();
-    auto bElapsed = std::chrono::duration_cast<std::chrono::microseconds>(bEnd - bStart);
-    std::cout << "Brute Force Time: " << bElapsed.count() << std::endl;
-    
-    //kdtree
-    auto kStart = std::chrono::high_resolution_clock::now();
-    for(int i = 0; i < 1000; i++) {
-        nearestNeighbor(kdtree, query);
-    }
-
-    auto kEnd = std::chrono::high_resolution_clock::now();
-    auto kElapsed = std::chrono::duration_cast<std::chrono::microseconds>(kEnd - kStart);
-    std::cout << "Kdtree Time: " << kElapsed.count() << std::endl;
-
-    double ratio = ((double)bElapsed.count()/kElapsed.count()-1) * 100;
-    std::cout << "The brute force method took " << ratio << "% longer than the KDtree method for finding the nearest neighbor" << std::endl;
-    */
 
     //server code using http lib.h
     httplib:: Server svr;
@@ -139,3 +106,36 @@ int main() {
     return 0;
 }
 
+void benchmarking (KDNode* kdtree, const Point& query, std::vector<Point> points){
+    //correctness check
+    Point treeResult = nearestNeighbor(kdtree, query);
+    Point bruteResult = bruteForceNearestNeighbor(points, query);
+    if (treeResult.name == bruteResult.name) {
+        std::cout << "Correctness check passed: both agree on " << treeResult.name << std::endl;
+    } else {
+        std::cout << "MISMATCH: tree=" << treeResult.name << " brute=" << bruteResult.name << std::endl;
+    }
+
+    //speed
+    auto bStart = std::chrono::high_resolution_clock::now();
+    //brute force
+    for(int i = 0; i < 1000; i++) {
+        bruteForceNearestNeighbor(points, query);
+    }
+    auto bEnd = std::chrono::high_resolution_clock::now();
+    auto bElapsed = std::chrono::duration_cast<std::chrono::microseconds>(bEnd - bStart);
+    std::cout << "Brute Force Time: " << bElapsed.count() << std::endl;
+    
+    //kdtree
+    auto kStart = std::chrono::high_resolution_clock::now();
+    for(int i = 0; i < 1000; i++) {
+        nearestNeighbor(kdtree, query);
+    }
+
+    auto kEnd = std::chrono::high_resolution_clock::now();
+    auto kElapsed = std::chrono::duration_cast<std::chrono::microseconds>(kEnd - kStart);
+    std::cout << "Kdtree Time: " << kElapsed.count() << std::endl;
+
+    double ratio = ((double)bElapsed.count()/kElapsed.count()-1) * 100;
+    std::cout << "The brute force method took " << ratio << "% longer than the KDtree method for finding the nearest neighbor" << std::endl;
+}

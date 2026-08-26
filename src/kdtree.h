@@ -42,7 +42,10 @@ double distance(const Point& a, const Point& b) {
     return std::sqrt(std::pow((a.x - b.x),2) + std::pow((a.y - b.y),2));
 }
 
-
+// finds the closest point to the query recursively. It uses pruning logic, checking if the axis distance is
+// greater than the current best distance, if it is that branch is not explored.
+// otherwise it will compare the current node's distance, and then go into a branch to see if the distance
+// can be improved.
 Point nearestNeighbor(KDNode* node, const Point& query, int depth, Point best){
     if(node == nullptr) {
         return best;
@@ -74,10 +77,12 @@ Point nearestNeighbor(KDNode* node, const Point& query, int depth, Point best){
     return best;
 }
 
+// front effacing function for finding the closest point to the query
 Point nearestNeighbor(KDNode* root, const Point& query) {
     return nearestNeighbor(root, query, 0, root->point);
 }
 
+// calculates the euclidean distance between two poitns. 
 bool equals(const Point& node, const Point& other) {
     if(node.name != other.name){
         return false;
@@ -89,6 +94,8 @@ bool equals(const Point& node, const Point& other) {
     return true;
 }
 
+// given a list of points and a target point and an empty list, this method will put all
+// of the points that are within distance r of the query, into the empty list. 
 void radiusQuery(KDNode* node, const Point& query, double r, int depth, std::vector<Point>& results) {
     if(node == nullptr){
         return;
@@ -109,8 +116,8 @@ void radiusQuery(KDNode* node, const Point& query, double r, int depth, std::vec
     }
 }
 
-
-
+// given a collection of points, this method will separate the points into lists called clusters. each point in the 
+// cluster will be within a radius value r specified by the input. 
 std::vector<std::vector<Point>> clusterPoints (const std::vector<Point>& points, KDNode* root, double r) {
     std::set<std::string> visited;
     std::vector<std::vector<Point>> clusters;
